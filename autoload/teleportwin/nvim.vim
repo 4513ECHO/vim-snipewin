@@ -1,0 +1,31 @@
+" @return winid[]
+function! teleportwin#nvim#list() abort
+  return nvim_list_wins()->filter({ _, id -> nvim_win_get_config(id).focusable })
+endfunction
+
+" @param winnr winnr
+" @param label { text: string[], width: integer, height: integer }
+" @return winid
+function! teleportwin#nvim#create_label(winnr, label) abort
+  let bufnr = nvim_create_buf(v:false, v:true)
+  call nvim_buf_set_lines(bufnr, 0, -1, v:true, a:label.text)
+
+  let winid = nvim_open_win(bufnr, v:false, #{
+        \ relative: 'win',
+        \ win: win_getid(a:winnr),
+        \ width: a:label.width,
+        \ height: a:label.height,
+        \ row: (winheight(a:winnr) - a:label.height) / 2,
+        \ col: (winwidth(a:winnr) - a:label.width) / 2,
+        \ focusable: v:false,
+        \ style: 'minimal',
+        \ }->extend(g:teleportwin_override_winopts))
+  call nvim_set_option_value('winhighlight', 'NormalFloat:TeleportWinLabel', #{ win: winid })
+
+  return winid
+endfunction
+
+" @param labels { label: winid }[]
+function! teleportwin#nvim#clear_label(labels) abort
+  call map(copy(a:labels), { _, label -> nvim_win_close(label.label, v:true) })
+endfunction
