@@ -12,6 +12,10 @@ function! snipewin#select(callback = function('win_gotoid')) abort
     return
   endif
   for target in targets
+    if label_idx >= len(label)
+      echohl WarningMsg | echomsg '[snipewin] window overflows the length of label' | echohl None
+      break
+    endif
     let label_win[label[label_idx]] = #{
           \ label: snipewin#{s:host}#create_label(win_id2win(target), fonts[label[label_idx]]),
           \ target: target,
@@ -19,9 +23,8 @@ function! snipewin#select(callback = function('win_gotoid')) abort
     let label_idx += 1
   endfor
 
-  redraw | echo 'snipewin > '
+  redraw
   let selected = getcharstr()->toupper()
-  echo '' | redraw
 
   call snipewin#{s:host}#clear_label(label_win->values())
   let winid = label_win->get(selected, {})->get('target', v:null)
