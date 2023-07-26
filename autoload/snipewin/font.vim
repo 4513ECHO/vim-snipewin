@@ -31,10 +31,10 @@ function! s:get_font(type) abort
   return s:cache_{a:type}
 endfunction
 
-function! teleportwin#font#small() abort
+function! snipewin#font#small() abort
   return s:get_font('small')
 endfunction
 
-function! teleportwin#font#large() abort
+function! snipewin#font#large() abort
   return s:get_font('large')
 endfunction

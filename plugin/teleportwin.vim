@@ -1,17 +1,17 @@
-if exists('g:loaded_teleportwin')
+if exists('g:loaded_snipewin')
   finish
 endif
-let g:loaded_teleportwin = v:true
+let g:loaded_snipewin = v:true
 
-let g:teleportwin_label_chars = g:->get('teleportwin_label_chars', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ')
-let g:teleportwin_label_size = g:->get('teleportwin_label_size', 'large')
-let g:teleportwin_ignore_single = g:->get('teleportwin_ignore_single', v:false)
-let g:teleportwin_override_winopts = g:->get('teleportwin_override_winopts', {})
+let g:snipewin_label_chars = g:->get('snipewin_label_chars', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ')
+let g:snipewin_label_size = g:->get('snipewin_label_size', 'large')
+let g:snipewin_ignore_single = g:->get('snipewin_ignore_single', v:false)
+let g:snipewin_override_winopts = g:->get('snipewin_override_winopts', {})
 
-augroup teleportwin
+augroup snipewin
   autocmd!
-  autocmd ColorScheme * hi def link TeleportWinLabel Label
+  autocmd ColorScheme * hi def link SnipeWinLabel Label
 augroup END
-hi def link TeleportWinLabel Label
+hi def link SnipeWinLabel Label
 
-nnoremap <Plug>(teleportwin) <Cmd>call teleportwin#select()<CR>
+nnoremap <Plug>(snipewin) <Cmd>call snipewin#select()<CR>
