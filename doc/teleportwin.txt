@@ -54,7 +54,7 @@ teleportwin#select([{callback}])                        *teleportwin#select()*
 VARIABLES                                              *teleportwin-variables*
 
 g:teleportwin_label_chars                          *g:teleportwin_label_chars*
-		|String| (default: "ABCDEFGHIJKLMNOPQRTUVWXYZ")
+		|String| (default: "ABCDEFGHIJKLMNOPQRSTUVWXYZ")
 	The set of charactors used for label.
 	If alphabetic charactors are included, they must be upper case.
 
