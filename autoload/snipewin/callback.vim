@@ -2,7 +2,11 @@ let g:snipewin#callback#close = { winid -> win_execute(winid, 'close') }
 
 let g:snipewin#callback#hide = { winid -> win_execute(winid, 'hide') }
 
+let g:snipewin#callback#goto = { winid -> win_gotoid(winid) }
+
 let g:snipewin#callback#only = { winid -> win_execute(winid, 'only') }
+
+let g:snipewin#callback#default = g:->get('snipewin#callback#default', g:snipewin#callback#goto)
 
 function! s:swap(winid) abort
   let current = win_getid()
