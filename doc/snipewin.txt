@@ -51,6 +51,7 @@ snipewin#select([{callback}])                              *snipewin#select()*
 	Start selecting windows.
 	{callback} is a |Funcref| that called after confirm selecting.
 	See |snipewin-callback| for details.
+	Return a result of {callback} if it is called, otherwise return |v:null|.
 
 ------------------------------------------------------------------------------
 VARIABLES                                                 *snipewin-variables*
