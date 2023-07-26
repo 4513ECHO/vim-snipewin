@@ -22,7 +22,7 @@ INTRODUCTION                                           *snipewin-introduction*
 
 *snipewin* ( *vim-snipewin* ) is a plugin to provide interactive |window|
 selector. The selector can be used to manipulate anything about window
-through |snipewin-callback| or custom callback.
+through |snipewin-callback|.
 
 The main idea is inspired by tmux's `display-panes` feature, vim-|choosewin|
 and chowcho.nvim.
@@ -55,23 +55,26 @@ snipewin#select([{callback}])                              *snipewin#select()*
 ------------------------------------------------------------------------------
 VARIABLES                                                 *snipewin-variables*
 
+g:snipewin_ignore_single                            *g:snipewin_ignore_single*
+		|Boolean| (default: |v:false|)
+	If |v:true| quit selecting immediately when only one window exists.
+
 g:snipewin_label_chars                                *g:snipewin_label_chars*
 		|String| (default: "ABCDEFGHIJKLMNOPQRSTUVWXYZ")
 	The set of charactors used for label.
 	If alphabetic charactors are included, they must be upper case.
 
+	WARNING: If the number of windows overflows the length of this
+	variable, You cannot select the rest of windows.
+
 g:snipewin_label_font                                  *g:snipewin_label_font*
 		|String| (default: "asciian")
 	The font used for label. "asciian" is available value.
 
-g:snipewin_ignore_single                            *g:snipewin_ignore_single*
-		|Boolean| (default: |v:false|)
-	If |v:true| quit selecting immediately when only one window exists.
-
-g:snipewin_override_winopts                *g:snipewin_override_winopts*
+g:snipewin_override_winopts                      *g:snipewin_override_winopts*
 		|Dictionary| (default: `{}`)
-	Override configs of label. See also |popup_create-arguments| for Vim
-	and |nvim_open_win()| for Neovim.
+	Override configs of label window. See |popup_create-arguments| in Vim
+	or |nvim_open_win()| in Neovim for details.
 
 ------------------------------------------------------------------------------
 CALLBACK                                                   *snipewin-callback*
@@ -80,7 +83,6 @@ Callback of |snipewin#select()| is a |Funcref| that recieves |window-ID| of
 selected window.
 If {callback} is ommited, |win_gotoid()| is used. In other words following
 expamle is same as default: >
-
 	call snipewin#select({ winid -> win_gotoid(winid) })
 
 BUIlTIN CALLBACKS~
@@ -100,7 +102,7 @@ g:snipewin#callback#swap                            *g:snipewin#callback#swap*
 	It may fallback to |CTRL-W_x| if possible.
 
 	WARNING: Unlike |CTRL-W_x|, this callback does not actually exchange
-	the windows. This means that window-local options (|global-local|)
+	the windows. This means that window-local options (see |global-local|)
 	will not be inheritd correctly.
 
 ------------------------------------------------------------------------------
@@ -108,7 +110,7 @@ HIGHLIGHT GROUPS                                   *snipewin-highlight-groups*
 
 SnipeWinLabel                                               *hl-SnipeWinLabel*
 	The highlight group used for label of |snipewin#select()|.
-	It is linked to `Label` (|group-name|) in default.
+	It is linked to `Label` (see |group-name|) in default.
 
 ==============================================================================
 ABOUT                                                         *snipewin-about*
