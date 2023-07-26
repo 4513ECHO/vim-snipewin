@@ -1,5 +1,5 @@
 " @return winid[]
-function! snipewin#vim#list() abort
+function! snipewin#vim#list_win() abort
   return range(1, winnr('$'))->map({ _, winnr -> win_getid(winnr) })
 endfunction
 

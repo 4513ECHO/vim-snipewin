@@ -7,13 +7,15 @@ function! snipewin#select(callback = function('win_gotoid')) abort
   " @type Record<string, { label: winid, target: winid }>
   let label_win = {}
 
-  let targets = snipewin#{s:host}#list()
+  let targets = snipewin#{s:host}#list_win()
   if g:snipewin_ignore_single && len(targets) ==# 1
     return
   endif
   for target in targets
     if label_idx >= len(label)
-      echohl WarningMsg | echomsg '[snipewin] window overflows the length of label' | echohl None
+      echohl WarningMsg
+      echomsg '[snipewin] Window overflows the length of label. Stop labeling...'
+      echohl None
       break
     endif
     let label_win[label[label_idx]] = #{

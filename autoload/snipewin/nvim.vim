@@ -1,5 +1,5 @@
 " @return winid[]
-function! snipewin#nvim#list() abort
+function! snipewin#nvim#list_win() abort
   return nvim_list_wins()->filter({ _, id -> nvim_win_get_config(id).focusable })
 endfunction
 
