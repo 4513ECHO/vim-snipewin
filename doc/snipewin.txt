@@ -61,8 +61,8 @@ g:snipewin_label_chars                                *g:snipewin_label_chars*
 	If alphabetic charactors are included, they must be upper case.
 
 g:snipewin_label_font                                  *g:snipewin_label_font*
-		|String| (default: "large")
-	The font used for label. "small" or "large" are available values.
+		|String| (default: "asciian")
+	The font used for label. "asciian" is available value.
 
 g:snipewin_ignore_single                            *g:snipewin_ignore_single*
 		|Boolean| (default: |v:false|)

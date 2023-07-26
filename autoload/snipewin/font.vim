@@ -1,9 +1,8 @@
 " {'!'..'~'}
-let s:chars = range(33, 126)->map({ _, nr -> nr2char(nr) })
+let s:chars = range(char2nr('A'), char2nr('Z'))->map({ _, nr -> nr2char(nr) })
 let s:cache = {}
 let s:file = #{
-      \ small: expand('<sfile>:h') .. '/data/small',
-      \ large: expand('<sfile>:h') .. '/data/large',
+      \ asciian: expand('<sfile>:h') .. '/data/asciian_9_15.txt',
       \ }
 
 function! s:read_data(file) abort
@@ -11,10 +10,20 @@ function! s:read_data(file) abort
   let R = s:chars->reduce({ acc, key ->
         \ [execute('let acc[key] = []'), acc][-1] }, {})
   let lines = readfile(a:file)
+
+  for _ in range(0, 2) " Skip a header and a blank griph
+    while v:true
+      let line = remove(lines, 0)
+      if empty(line)
+        break
+      endif
+    endwhile
+  endfor
+
   for c in s:chars
     while v:true
       let line = remove(lines, 0)
-      if line =~# '\v^---'
+      if empty(line)
         break
       endif
       call add(R[c], line)
