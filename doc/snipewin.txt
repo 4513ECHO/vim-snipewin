@@ -19,9 +19,10 @@ About						|snipewin-about|
 ==============================================================================
 INTRODUCTION                                           *snipewin-introduction*
 
-*snipewin* ( *vim-snipewin* ) is a plugin to select windows and jump to it.
-The main idea is inspired by tmux's `display-panes` subcommand and
-vim-|choosewin|.
+*snipewin* ( *vim-snipewin* ) is a plugin to provide interactive |window|
+selector. The selector can be used to jump, close, or other actions.
+
+The main idea is inspired by tmux's `display-panes` feature and vim-|choosewin|.
 
 https://github.com/t9md/vim-choosewin
 
@@ -64,8 +65,7 @@ g:snipewin_label_font                                  *g:snipewin_label_font*
 
 g:snipewin_ignore_single                            *g:snipewin_ignore_single*
 		|Boolean| (default: |v:false|)
-	If it is |v:true|, quit selecting immediately when only one window
-	exists.
+	If |v:true| quit selecting immediately when only one window exists.
 
 g:snipewin_override_winopts                *g:snipewin_override_winopts*
 		|Dictionary| (default: `{}`)
