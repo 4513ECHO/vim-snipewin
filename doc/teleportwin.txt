@@ -19,7 +19,13 @@ About						|teleportwin-about|
 ==============================================================================
 INTRODUCTION                                        *teleportwin-introduction*
 
-*teleportwin* ( *vim-teleportwin* ) is ...
+*teleportwin* ( *vim-teleportwin* ) is a plugin to select |window|s and
+teleport to it. The main idea is inspired by tmux's `display-panes` subcommand
+and vim-|choosewin|.
+
+https://github.com/t9md/vim-choosewin
+
+Vim v9.0.0000+ or Neovim v0.8.0+ is required.
 
 ==============================================================================
 INTERFACE                                              *teleportwin-interface*
@@ -28,38 +34,50 @@ INTERFACE                                              *teleportwin-interface*
 KEY MAPPINGS                                        *teleportwin-key-mappings*
 
 <Plug>(teleportwin)                                      *<Plug>(teleportwin)*
-	TODO
+	The mapping version of |teleport#select()|.
+
+	Expamle: >
+		nnoremap <C-w>w <Plug>(teleportwin)
 
 ------------------------------------------------------------------------------
 FUNCTIONS                                              *teleportwin-functions*
 
 teleportwin#select([{callback}])                        *teleportwin#select()*
-	TODO
+	Start selecting windows and teleport.
+	{callback} is a |Funcref| that called with |window-ID| as an argument.
+	If {callback} is ommited, |win_gotoid()| is used.
+
+	Expamle to close selected window: >
+		call teleportwin#select({ winid -> win_execute(winid, 'close') })
 
 ------------------------------------------------------------------------------
 VARIABLES                                              *teleportwin-variables*
 
 g:teleportwin_label_chars                          *g:teleportwin_label_chars*
 		|String| (default: "ABCDEFGHIJKLMNOPQRTUVWXYZ")
-	TODO
+	The set of charactors used for label.
+	If alphabetic charactors are included, they must be upper case.
 
 g:teleportwin_label_size                            *g:teleportwin_label_size*
 		|String| (default: "large")
-	TODO
+	The size of label. "small" or "large" are available values.
 
 g:teleportwin_ignore_single                      *g:teleportwin_ignore_single*
 		|Boolean| (default: |v:false|)
-	TODO
+	If it is |v:true|, quit selecting immediately when only one window
+	exists.
 
 g:teleportwin_override_winopts                *g:teleportwin_override_winopts*
 		|Dictionary| (default: `{}`)
-	TODO
+	Override configs of label. See also |popup_create-arguments| for Vim
+	and |nvim_open_win()| for Neovim.
 
 ------------------------------------------------------------------------------
 HIGHLIGHT GROUPS                                *teleportwin-highlight-groups*
 
 TeleportWinLabel                                         *hl-TeleportWinLabel*
-	TODO
+	The highlight group used for label of |teleportwin#select()|.
+	It is linked to `Label` (|group-name|) in default.
 
 ==============================================================================
 ABOUT                                                      *teleportwin-about*
