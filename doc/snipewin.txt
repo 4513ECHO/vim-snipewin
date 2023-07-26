@@ -97,9 +97,9 @@ g:snipewin#callback#only                            *g:snipewin#callback#only*
 
 g:snipewin#callback#swap                            *g:snipewin#callback#swap*
 	Swap displayed buffers between current window and target window.
-	If the number of windows is 2, it will fallback to |CTRL-W_x|.
+	It may fallback to |CTRL-W_x| if possible.
 
-	NOTE: Unlike |CTRL-W_x|, this callback does not actually exchange
+	WARNING: Unlike |CTRL-W_x|, this callback does not actually exchange
 	the windows. This means that window-local options (|global-local|)
 	will not be inheritd correctly.
 
