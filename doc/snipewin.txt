@@ -92,6 +92,9 @@ g:snipewin#callback#close                          *g:snipewin#callback#close*
 g:snipewin#callback#hide                            *g:snipewin#callback#hide*
 	Execute |:hide| in target window.
 
+g:snipewin#callback#only                            *g:snipewin#callback#only*
+	Execute |:only| in target window.
+
 g:snipewin#callback#swap                            *g:snipewin#callback#swap*
 	Swap displayed buffers between current window and target window.
 

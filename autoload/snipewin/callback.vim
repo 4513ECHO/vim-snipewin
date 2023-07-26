@@ -8,6 +8,11 @@ function s:hide(winid)
 endfunction
 let g:snipewin#callback#hide = function('s:hide')
 
+function! s:only(winid) abort
+  call win_execute(a:winid, 'only')
+endfunction
+let g:snipewin#callback#only = function('s:only')
+
 function! s:swap(winid) abort
   let [current, target] = [bufnr(), winbufnr(a:winid)]
   execute 'buffer' target
