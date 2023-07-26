@@ -1,17 +1,8 @@
-function! s:close(winid) abort
-  call win_execute(a:winid, 'close')
-endfunction
-let g:snipewin#callback#close = function('s:close')
+let g:snipewin#callback#close = { winid -> win_execute(winid, 'close') }
 
-function s:hide(winid) abort
-  call win_execute(a:winid, 'hide')
-endfunction
-let g:snipewin#callback#hide = function('s:hide')
+let g:snipewin#callback#hide = { winid -> win_execute(winid, 'hide') }
 
-function! s:only(winid) abort
-  call win_execute(a:winid, 'only')
-endfunction
-let g:snipewin#callback#only = function('s:only')
+let g:snipewin#callback#only = { winid -> win_execute(winid, 'only') }
 
 function! s:swap(winid) abort
   let current = win_getid()

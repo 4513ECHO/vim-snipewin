@@ -29,8 +29,8 @@ function! snipewin#select(callback = function('win_gotoid')) abort
   let selected = getcharstr()->toupper()
 
   call snipewin#{s:host}#clear_label(label_win->values())
-  let winid = label_win->get(selected, {})->get('target', v:null)
-  if winid isnot# v:null
+  let winid = label_win->get(selected, {})->get('target')
+  if winid
     call a:callback(winid)
   endif
 endfunction
