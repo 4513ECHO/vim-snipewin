@@ -1,6 +1,7 @@
 " @return winid[]
 function! snipewin#vim#list_win() abort
-  return range(1, winnr('$'))->map({ _, winnr -> win_getid(winnr) })
+  return range(1, tabpagewinnr(tabpagenr(), '$'))
+        \ ->map({ _, winnr -> win_getid(winnr) })
 endfunction
 
 " @param winnr winnr

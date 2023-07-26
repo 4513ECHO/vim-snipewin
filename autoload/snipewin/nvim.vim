@@ -1,6 +1,7 @@
 " @return winid[]
 function! snipewin#nvim#list_win() abort
-  return nvim_list_wins()->filter({ _, id -> nvim_win_get_config(id).focusable })
+  return nvim_tabpage_list_wins(0)
+        \ ->filter({ _, id -> nvim_win_get_config(id).focusable })
 endfunction
 
 " @param winnr winnr
