@@ -13,6 +13,7 @@ Interface					|snipewin-interface|
   Key Mappings					|snipewin-key-mappings|
   Functions					|snipewin-functions|
   Variables					|snipewin-variables|
+  Callbacks					|snipewin-calbacks|
   Highlight Groups				|snipewin-highlight-groups|
 About						|snipewin-about|
 
@@ -20,11 +21,14 @@ About						|snipewin-about|
 INTRODUCTION                                           *snipewin-introduction*
 
 *snipewin* ( *vim-snipewin* ) is a plugin to provide interactive |window|
-selector. The selector can be used to jump, close, or other actions.
+selector. The selector can be used to manipulate anything about window
+through |snipewin-callback| or custom callback.
 
-The main idea is inspired by tmux's `display-panes` feature and vim-|choosewin|.
+The main idea is inspired by tmux's `display-panes` feature, vim-|choosewin|
+and chowcho.nvim.
 
 https://github.com/t9md/vim-choosewin
+https://github.com/tkmpypy/chowcho.nvim
 
 Vim v9.0.0000+ or Neovim v0.8.0+ is required.
 
@@ -45,11 +49,8 @@ FUNCTIONS                                                 *snipewin-functions*
 
 snipewin#select([{callback}])                              *snipewin#select()*
 	Start selecting windows.
-	{callback} is a |Funcref| that called with |window-ID| after confirm.
-	If {callback} is ommited, |win_gotoid()| is used.
-
-	Expamle to close selected window: >
-		call snipewin#select({ winid -> win_execute(winid, 'close') })
+	{callback} is a |Funcref| that called after confirm selecting.
+	See |snipewin-callbacks| for details.
 
 ------------------------------------------------------------------------------
 VARIABLES                                                 *snipewin-variables*
@@ -71,6 +72,28 @@ g:snipewin_override_winopts                *g:snipewin_override_winopts*
 		|Dictionary| (default: `{}`)
 	Override configs of label. See also |popup_create-arguments| for Vim
 	and |nvim_open_win()| for Neovim.
+
+------------------------------------------------------------------------------
+CALLBACKS                                                 *snipewin-callbacks*
+
+Callback of |snipewin#select()| is a |Funcref| that recieves |window-ID| of
+selected window.
+If {callback} is ommited, |win_gotoid()| is used. In other words following
+expamle is same as default: >
+
+	call snipewin#select({ winid -> win_gotoid(winid) })
+
+BUIlTIN CALLBACKS~
+	Following builtin callbacks are available.
+
+g:snipewin#callback#close                          *g:snipewin#callback#close*
+	Execute |:close| in target window.
+
+g:snipewin#callback#hide                            *g:snipewin#callback#hide*
+	Execute |:hide| in target window.
+
+g:snipewin#callback#swap                            *g:snipewin#callback#swap*
+	Swap displayed buffers between current window and target window.
 
 ------------------------------------------------------------------------------
 HIGHLIGHT GROUPS                                   *snipewin-highlight-groups*
