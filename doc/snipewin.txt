@@ -39,7 +39,7 @@ INTERFACE                                                 *snipewin-interface*
 KEY MAPPINGS                                           *snipewin-key-mappings*
 
 <Plug>(snipewin)                                            *<Plug>(snipewin)*
-	The mapping version of |snipe#select()|.
+	The mapping version of |snipewin#select()|.
 
 	Expamle: >
 		nnoremap <C-w>w <Plug>(snipewin)
@@ -49,9 +49,9 @@ FUNCTIONS                                                 *snipewin-functions*
 
 snipewin#select([{callback}])                              *snipewin#select()*
 	Start selecting windows.
-	{callback} is a |Funcref| that called after confirm selecting.
+	{callback} is optional |Funcref| that called after confirm selecting.
 	See |snipewin-callback| for details.
-	Return a result of {callback} if it is called, otherwise return |v:null|.
+	Return a result of {callback} if it called, otherwise return |v:none|.
 
 ------------------------------------------------------------------------------
 VARIABLES                                                 *snipewin-variables*
@@ -70,7 +70,7 @@ g:snipewin_label_chars                                *g:snipewin_label_chars*
 
 g:snipewin_label_font                                  *g:snipewin_label_font*
 		|String| (default: "asciian")
-	The font used for label. "asciian" is available value.
+	The font used for label. "asciian", "asciian_inverted" are available.
 
 g:snipewin_override_winopts                      *g:snipewin_override_winopts*
 		|Dictionary| (default: `{}`)
@@ -82,18 +82,26 @@ CALLBACK                                                   *snipewin-callback*
 
 Callback of |snipewin#select()| is a |Funcref| that recieves |window-ID| of
 selected window.
-If {callback} is ommited, |win_gotoid()| is used. In other words following
-expamle is same as default: >
-	call snipewin#select({ winid -> win_gotoid(winid) })
+If {callback} is ommited, |g:snipewin#callback#default| is used.
+
+Expamle: >
+	call snipewin#select({ winid -> YourFunc(winid, ...) })
 
 BUIlTIN CALLBACKS~
 	Following builtin callbacks are available.
+
+g:snipewin#callback#default                      *g:snipewin#callback#default*
+	Default callback of |snipewin#select()| and you can define this. It is
+	same as |g:snipewin#callback#goto| by default.
 
 g:snipewin#callback#close                          *g:snipewin#callback#close*
 	Execute |:close| in target window.
 
 g:snipewin#callback#hide                            *g:snipewin#callback#hide*
 	Execute |:hide| in target window.
+
+g:snipewin#callback#goto                            *g:snipewin#callback#goto*
+	Go to target window.
 
 g:snipewin#callback#only                            *g:snipewin#callback#only*
 	Execute |:only| in target window.

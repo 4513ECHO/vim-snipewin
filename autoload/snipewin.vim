@@ -1,6 +1,6 @@
 let s:host = has('nvim') ? 'nvim' : 'vim'
 
-function! snipewin#select(callback = function('win_gotoid')) abort
+function! snipewin#select(callback = g:snipewin#callback#default) abort
   let fonts = snipewin#font#load(g:snipewin_label_font)
   let label = g:snipewin_label_chars->split('\zs')
   let label_idx = 0
@@ -33,5 +33,5 @@ function! snipewin#select(callback = function('win_gotoid')) abort
   if winid
     return a:callback(winid)
   endif
-  return v:null
+  return v:none
 endfunction
