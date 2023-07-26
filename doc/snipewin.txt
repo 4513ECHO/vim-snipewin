@@ -69,8 +69,8 @@ g:snipewin_label_chars                                *g:snipewin_label_chars*
 	variable, You cannot select the rest of windows.
 
 g:snipewin_label_font                                  *g:snipewin_label_font*
-		|String| (default: "large")
-	The font used for label. "small" or "large" are available values.
+		|String| (default: "asciian")
+	The font used for label. "asciian", "asciian_inverted" are available.
 
 g:snipewin_override_winopts                      *g:snipewin_override_winopts*
 		|Dictionary| (default: `{}`)
