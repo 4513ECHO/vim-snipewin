@@ -13,7 +13,7 @@ Interface					|snipewin-interface|
   Key Mappings					|snipewin-key-mappings|
   Functions					|snipewin-functions|
   Variables					|snipewin-variables|
-  Callbacks					|snipewin-calbacks|
+  Callback					|snipewin-callback|
   Highlight Groups				|snipewin-highlight-groups|
 About						|snipewin-about|
 
@@ -50,7 +50,7 @@ FUNCTIONS                                                 *snipewin-functions*
 snipewin#select([{callback}])                              *snipewin#select()*
 	Start selecting windows.
 	{callback} is a |Funcref| that called after confirm selecting.
-	See |snipewin-callbacks| for details.
+	See |snipewin-callback| for details.
 
 ------------------------------------------------------------------------------
 VARIABLES                                                 *snipewin-variables*
@@ -74,7 +74,7 @@ g:snipewin_override_winopts                *g:snipewin_override_winopts*
 	and |nvim_open_win()| for Neovim.
 
 ------------------------------------------------------------------------------
-CALLBACKS                                                 *snipewin-callbacks*
+CALLBACK                                                   *snipewin-callback*
 
 Callback of |snipewin#select()| is a |Funcref| that recieves |window-ID| of
 selected window.
