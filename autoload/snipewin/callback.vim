@@ -3,7 +3,7 @@ function! s:close(winid) abort
 endfunction
 let g:snipewin#callback#close = function('s:close')
 
-function s:hide(winid)
+function s:hide(winid) abort
   call win_execute(a:winid, 'hide')
 endfunction
 let g:snipewin#callback#hide = function('s:hide')
@@ -14,8 +14,12 @@ endfunction
 let g:snipewin#callback#only = function('s:only')
 
 function! s:swap(winid) abort
-  let [current, target] = [bufnr(), winbufnr(a:winid)]
-  execute 'buffer' target
-  call win_execute(a:winid, 'buffer ' .. current)
+  let current = win_getid()
+  if current !=# a:winid && winnr('$') <= 2
+    wincmd x
+    return
+  endif
+  execute 'buffer' winbufnr(a:winid)
+  call win_execute(a:winid, 'buffer ' .. winbufnr(current))
 endfunction
 let g:snipewin#callback#swap = function('s:swap')
