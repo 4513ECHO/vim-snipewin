@@ -33,5 +33,5 @@ function! snipewin#select(callback = g:snipewin#callback#default) abort
   if winid
     return a:callback(winid)
   endif
-  return v:none
+  return v:null
 endfunction

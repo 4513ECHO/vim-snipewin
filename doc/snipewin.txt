@@ -3,7 +3,7 @@
 Author: Hibiki <mail@4513echo.dev>
 License: MIT License
 URL: https://github.com/4513ECHO/vim-snipewin
-Last change: 2023 Jul 26
+Last change: 2023 Jul 27
 
 ==============================================================================
 CONTENTS                                                   *snipewin-contents*
@@ -51,7 +51,7 @@ snipewin#select([{callback}])                              *snipewin#select()*
 	Start selecting windows.
 	{callback} is optional |Funcref| that called after confirm selecting.
 	See |snipewin-callback| for details.
-	Return a result of {callback} if it called, otherwise return |v:none|.
+	Return a result of {callback} if it called, otherwise return |v:null|.
 
 ------------------------------------------------------------------------------
 VARIABLES                                                 *snipewin-variables*
