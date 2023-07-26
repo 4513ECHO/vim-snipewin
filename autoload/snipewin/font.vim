@@ -1,9 +1,13 @@
+" {'!'..'~'}
 let s:chars = range(33, 126)->map({ _, nr -> nr2char(nr) })
-
-let s:data_small = expand('<sfile>:h') .. '/data/small'
-let s:data_large = expand('<sfile>:h') .. '/data/large'
+let s:cache = {}
+let s:file = #{
+      \ small: expand('<sfile>:h') .. '/data/small',
+      \ large: expand('<sfile>:h') .. '/data/large',
+      \ }
 
 function! s:read_data(file) abort
+  " NOTE: Initialize Record<s:chars, string[]>
   let R = s:chars->reduce({ acc, key ->
         \ [execute('let acc[key] = []'), acc][-1] }, {})
   let lines = readfile(a:file)
@@ -19,22 +23,14 @@ function! s:read_data(file) abort
   return R
 endfunction
 
-function! s:get_font(type) abort
-  if !exists('s:cache_' .. a:type)
-    let s:cache_{a:type} = s:read_data(s:data_{a:type})
+function! snipewin#font#load(name) abort
+  if !has_key(s:cache, a:name)
+    let s:cache[a:name] = s:read_data(s:file[a:name])
           \ ->map({ _, text -> #{
           \   text: text,
           \   height: len(text),
           \   width: len(text[0]),
           \ } })
   endif
-  return s:cache_{a:type}
-endfunction
-
-function! snipewin#font#small() abort
-  return s:get_font('small')
-endfunction
-
-function! snipewin#font#large() abort
-  return s:get_font('large')
+  return s:cache[a:name]
 endfunction

@@ -58,9 +58,9 @@ g:snipewin_label_chars                                *g:snipewin_label_chars*
 	The set of charactors used for label.
 	If alphabetic charactors are included, they must be upper case.
 
-g:snipewin_label_size                                  *g:snipewin_label_size*
+g:snipewin_label_font                                  *g:snipewin_label_font*
 		|String| (default: "large")
-	The size of label. "small" or "large" are available values.
+	The font used for label. "small" or "large" are available values.
 
 g:snipewin_ignore_single                            *g:snipewin_ignore_single*
 		|Boolean| (default: |v:false|)

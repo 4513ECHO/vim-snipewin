@@ -4,7 +4,7 @@ endif
 let g:loaded_snipewin = v:true
 
 let g:snipewin_label_chars = g:->get('snipewin_label_chars', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ')
-let g:snipewin_label_size = g:->get('snipewin_label_size', 'large')
+let g:snipewin_label_font = g:->get('snipewin_label_font', 'large')
 let g:snipewin_ignore_single = g:->get('snipewin_ignore_single', v:false)
 let g:snipewin_override_winopts = g:->get('snipewin_override_winopts', {})
 

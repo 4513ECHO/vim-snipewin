@@ -1,7 +1,7 @@
 let s:host = has('nvim') ? 'nvim' : 'vim'
 
 function! snipewin#select(callback = function('win_gotoid')) abort
-  let fonts = snipewin#font#{g:snipewin_label_size}()
+  let fonts = snipewin#font#load(g:snipewin_label_font)
   let label = g:snipewin_label_chars->split('\zs')
   let label_idx = 0
   " @type Record<string, { label: winid, target: winid }>
