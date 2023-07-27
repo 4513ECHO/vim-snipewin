@@ -30,8 +30,8 @@ function! snipewin#select(callback = g:snipewin#callback#default) abort
 
   call snipewin#{s:host}#clear_label(label_win->values())
   let winid = label_win->get(selected, {})->get('target')
-  if winid
-    return a:callback(winid)
+  if winid || v:mouse_winid
+    return a:callback(winid ? winid : v:mouse_winid)
   endif
   return v:null
 endfunction
