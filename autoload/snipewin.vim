@@ -13,9 +13,7 @@ function! snipewin#select(callback = g:snipewin#callback#default) abort
   endif
   for target in targets
     if label_idx >= len(label)
-      echohl WarningMsg
-      echomsg '[snipewin] Window overflows the length of label. Stop labeling...'
-      echohl None
+      call snipewin#_echoerr('Window overflows the length of label. Stop labeling...')
       break
     endif
     let label_win[label[label_idx]] = #{
@@ -34,4 +32,10 @@ function! snipewin#select(callback = g:snipewin#callback#default) abort
     return a:callback(winid ? winid : v:mouse_winid)
   endif
   return v:null
+endfunction
+
+function! snipewin#_echoerr(msg) abort
+  echohl WarningMsg
+  echomsg '[snipewin]' a:msg
+  echohl None
 endfunction
