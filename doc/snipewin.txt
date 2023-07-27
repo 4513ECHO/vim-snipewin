@@ -42,7 +42,7 @@ KEY MAPPINGS                                           *snipewin-key-mappings*
 	The mapping version of |snipewin#select()|.
 
 	Expamle: >
-		nnoremap <C-w>w <Plug>(snipewin)
+		nnoremap <C-w>W <Plug>(snipewin)
 
 ------------------------------------------------------------------------------
 FUNCTIONS                                                 *snipewin-functions*
@@ -53,17 +53,21 @@ snipewin#select([{callback}])                              *snipewin#select()*
 	See |snipewin-callback| for details.
 	Return a result of {callback} if it called, otherwise return |v:null|.
 
+	NOTE: If typed charactor is lower case alphabet, treated as upper case.
+	NOTE: If typed charactor is invalid, Selecting is canceled and
+	callback is not called.
+
 ------------------------------------------------------------------------------
 VARIABLES                                                 *snipewin-variables*
 
 g:snipewin_ignore_single                            *g:snipewin_ignore_single*
 		|Boolean| (default: |v:false|)
-	If |v:true| quit selecting immediately when only one window exists.
+	If |v:true| cancel selecting immediately when only one window exists.
 
 g:snipewin_label_chars                                *g:snipewin_label_chars*
 		|String| (default: "ABCDEFGHIJKLMNOPQRSTUVWXYZ")
 	The set of charactors used for label.
-	If alphabetic charactors are included, they must be upper case.
+	Only upper case alphabets are acceptable.
 
 	WARNING: If the number of windows overflows the length of this
 	variable, You cannot select the rest of windows.
@@ -92,7 +96,7 @@ BUIlTIN CALLBACKS~
 
 g:snipewin#callback#default                      *g:snipewin#callback#default*
 	Default callback of |snipewin#select()| and you can define this. It is
-	same as |g:snipewin#callback#goto| by default.
+	alias of |g:snipewin#callback#goto| by default.
 
 g:snipewin#callback#close                          *g:snipewin#callback#close*
 	Execute |:close| in target window.
