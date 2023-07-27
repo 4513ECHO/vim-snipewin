@@ -8,7 +8,10 @@ function! snipewin#select(callback = g:snipewin#callback#default) abort
   let label_win = {}
 
   let targets = snipewin#{s:host}#list_win()
-  if g:snipewin_ignore_single && len(targets) ==# 1
+  for Filter in g:snipewin_filters
+    let targets = targets->copy()->filter({ _, winid -> !Filter(winid) })
+  endfor
+  if len(targets) ==# 0 || (g:snipewin_ignore_single && len(targets) ==# 1)
     return
   endif
   for target in targets

@@ -3,6 +3,7 @@ if exists('g:loaded_snipewin')
 endif
 let g:loaded_snipewin = v:true
 
+let g:snipewin_filters = g:->get('snipewin_filters', [])
 let g:snipewin_ignore_single = g:->get('snipewin_ignore_single', v:false)
 let g:snipewin_label_chars = g:->get('snipewin_label_chars', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ')
 let g:snipewin_label_font = g:->get('snipewin_label_font', 'asciian')
