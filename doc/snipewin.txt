@@ -13,7 +13,7 @@ Interface					|snipewin-interface|
   Key Mappings					|snipewin-key-mappings|
   Functions					|snipewin-functions|
   Variables					|snipewin-variables|
-  Callback					|snipewin-callback|
+  Callbacks					|snipewin-callbacks|
   Filters					|snipewin-filters|
   Highlight Groups				|snipewin-highlight-groups|
 About						|snipewin-about|
@@ -23,7 +23,7 @@ INTRODUCTION                                           *snipewin-introduction*
 
 *snipewin* ( *vim-snipewin* ) is a plugin to provide interactive |window|
 selector. The selector can be used to manipulate anything about window
-through |snipewin-callback|.
+through |snipewin-callbacks|.
 
 The main idea is inspired by tmux's `display-panes` feature, vim-|choosewin|
 and chowcho.nvim.
@@ -51,7 +51,7 @@ FUNCTIONS                                                 *snipewin-functions*
 snipewin#select([{callback}])                              *snipewin#select()*
 	Start selecting windows.
 	{callback} is optional |Funcref| that called after confirm selecting.
-	See |snipewin-callback| for details.
+	See |snipewin-callbacks| for details.
 	Return a result of {callback} if it called, otherwise return |v:null|.
 
 	NOTE: If typed charactor is lower case alphabet, treated as upper case.
@@ -94,16 +94,16 @@ g:snipewin_override_winopts                      *g:snipewin_override_winopts*
 	or |nvim_open_win()| in Neovim for details.
 
 ------------------------------------------------------------------------------
-CALLBACK                                                   *snipewin-callback*
+CALLBACKS                                                 *snipewin-callbacks*
 
 Callback of |snipewin#select()| is a |Funcref| that recieves |window-ID| of
 selected window.
 If {callback} is ommited, |g:snipewin#callback#default| is used.
 
-Expamle: >
-	call snipewin#select({ winid -> YourFunc(winid, ...) })
+Expamle to pass through winid: >
+	call snipewin#select({ winid -> winid })
 
-BUIlTIN CALLBACKS~
+BUILTIN CALLBACKS~
 	Following builtin callbacks are available.
 
 g:snipewin#callback#default                      *g:snipewin#callback#default*
@@ -146,7 +146,7 @@ g:snipewin#filter#filetype                        *g:snipewin#filter#filetype*
 	       \ ]
 
 g:snipewin#filter#floatwin                        *g:snipewin#filter#floatwin*
-	Filter to ignore Neovim's |api-floatwin|.
+	Filter to ignore Neovim's floating window (see |api-floatwin|).
 
 ------------------------------------------------------------------------------
 HIGHLIGHT GROUPS                                   *snipewin-highlight-groups*
