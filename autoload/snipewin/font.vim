@@ -33,14 +33,11 @@ function! s:read_data(file) abort
 endfunction
 
 function! s:invert_font(text) abort
-  let result = []
-  for line in a:text
-    let line = substitute(line, ' ', '@', 'g')
-    let line = substitute(line, '#', ' ', 'g')
-    let line = substitute(line, '@', '#', 'g')
-    call add(result, line)
-  endfor
-  return result
+  return a:text->map({ _, line -> line
+        \ ->substitute(' ', '@', 'g')
+        \ ->substitute('#', ' ', 'g')
+        \ ->substitute('@', '#', 'g')
+        \ })
 endfunction
 
 function! snipewin#font#load(name) abort
@@ -52,7 +49,7 @@ function! snipewin#font#load(name) abort
             \   text: s:invert_font(text),
             \   height: len(text),
             \   width: len(text[0]),
-            \} })
+            \ } })
     else
       let s:cache[a:name] = s:read_data(s:file[a:name])
             \ ->map({ _, text -> #{

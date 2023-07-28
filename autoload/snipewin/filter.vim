@@ -1,6 +1,7 @@
+let s:msg = '%s expects list but got number. Probubbly you treat as non-higher-ordrer function.'
 function! s:filetype(filetypes) abort
   if type(a:filetypes) ==# v:t_number
-    call snipewin#_echoerr('g:snipewin#filter#filetype expects list but got number. Probubbly you treat as non-higher-ordrer function.')
+    call snipewin#_echoerr('g:snipewin#filter#filetype'->printf(s:msg))
     return v:false
   endif
   return { winid -> index(a:filetypes, getwinvar(winid, '&filetype')) > -1 }

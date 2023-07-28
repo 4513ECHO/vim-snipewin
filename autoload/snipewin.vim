@@ -20,7 +20,7 @@ function! snipewin#select(callback = g:snipewin#callback#default) abort
       break
     endif
     let label_win[label[label_idx]] = #{
-          \ label: snipewin#{s:host}#create_label(win_id2win(target), fonts[label[label_idx]]),
+          \ label: win_id2win(target)->snipewin#{s:host}#create_label(fonts[label[label_idx]]),
           \ target: target,
           \ }
     let label_idx += 1
@@ -37,8 +37,11 @@ function! snipewin#select(callback = g:snipewin#callback#default) abort
   return v:null
 endfunction
 
-function! snipewin#_echoerr(msg) abort
+function! s:echoerr(msg) abort
   echohl WarningMsg
   echomsg '[snipewin]' a:msg
   echohl None
+endfunction
+function! snipewin#_echoerr(msg) abort
+  call timer_start(0, { -> s:echoerr(a:msg) })
 endfunction
