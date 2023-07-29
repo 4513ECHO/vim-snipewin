@@ -3,7 +3,7 @@
 Author: Hibiki <mail@4513echo.dev>
 License: MIT License
 URL: https://github.com/4513ECHO/vim-snipewin
-Last change: 2023 Jul 27
+Last change: 2023 Jul 29
 
 ==============================================================================
 CONTENTS                                                   *snipewin-contents*
@@ -78,7 +78,7 @@ g:snipewin_ignore_single                            *g:snipewin_ignore_single*
 
 g:snipewin_label_chars                                *g:snipewin_label_chars*
 		|String| (default: "ABCDEFGHIJKLMNOPQRSTUVWXYZ")
-	The set of charactors used for label.
+	The set of charactors used for label, used from the head.
 	Only upper case alphabets are acceptable.
 
 	WARNING: If the number of windows overflows the length of this
@@ -90,8 +90,9 @@ g:snipewin_label_font                                  *g:snipewin_label_font*
 
 g:snipewin_override_winopts                      *g:snipewin_override_winopts*
 		|Dictionary| (default: `{}`)
-	Override configs of label window. See |popup_create-arguments| in Vim
-	or |nvim_open_win()| in Neovim for details.
+	Override configs of label window, such as border or zindex.
+	See |popup_create-arguments| in Vim or |nvim_open_win()| in Neovim for
+	specifically option names.
 
 ------------------------------------------------------------------------------
 CALLBACKS                                                 *snipewin-callbacks*
@@ -127,7 +128,7 @@ g:snipewin#callback#swap                            *g:snipewin#callback#swap*
 	It may fallback to |CTRL-W_x| if possible.
 
 	WARNING: Unlike |CTRL-W_x|, this callback does not actually exchange
-	the windows. This means that window-local options (see |global-local|)
+	the windows. This means that window-local options (|global-local|)
 	will not be inheritd correctly.
 
 ------------------------------------------------------------------------------
@@ -146,7 +147,7 @@ g:snipewin#filter#filetype                        *g:snipewin#filter#filetype*
 	       \ ]
 
 g:snipewin#filter#floatwin                        *g:snipewin#filter#floatwin*
-	Filter to ignore Neovim's floating window (see |api-floatwin|).
+	Filter to ignore Neovim's floating window (|api-floatwin|).
 
 ------------------------------------------------------------------------------
 HIGHLIGHT GROUPS                                   *snipewin-highlight-groups*
