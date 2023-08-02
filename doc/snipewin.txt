@@ -3,7 +3,7 @@
 Author: Hibiki <mail@4513echo.dev>
 License: MIT License
 URL: https://github.com/4513ECHO/vim-snipewin
-Last change: 2023 Jul 29
+Last change: 2023 Aug 02
 
 ==============================================================================
 CONTENTS                                                   *snipewin-contents*
@@ -99,6 +99,7 @@ CALLBACKS                                                 *snipewin-callbacks*
 
 Callback of |snipewin#select()| is a |Funcref| that recieves |window-ID| of
 selected window.
+Callback is always called in the current window.
 If {callback} is ommited, |g:snipewin#callback#default| is used.
 
 Expamle to pass through winid: >
