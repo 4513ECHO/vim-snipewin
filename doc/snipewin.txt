@@ -3,7 +3,7 @@
 Author: Hibiki <mail@4513echo.dev>
 License: MIT License
 URL: https://github.com/4513ECHO/vim-snipewin
-Last change: 2023 Aug 02
+Last change: 2023 Aug 15
 
 ==============================================================================
 CONTENTS                                                   *snipewin-contents*
@@ -15,6 +15,7 @@ Interface					|snipewin-interface|
   Variables					|snipewin-variables|
   Callbacks					|snipewin-callbacks|
   Filters					|snipewin-filters|
+  Lua Interface					|snipewin-lua-interface|
   Highlight Groups				|snipewin-highlight-groups|
 About						|snipewin-about|
 
@@ -64,7 +65,7 @@ VARIABLES                                                 *snipewin-variables*
 g:snipewin_filters                                        *g:snipewin_filters*
 		|List| of |Funcref| (default: `[]`)
 	Filters to judge whether a window should not be labeled.
-	Each function recieves |window-ID| and return boolean.
+	Each function recieves |window-ID| and return |Boolean|.
 	Only windows that pass none of filter functions are labeled.
 
 	Expamle to ignore current window: >
@@ -149,6 +150,28 @@ g:snipewin#filter#filetype                        *g:snipewin#filter#filetype*
 
 g:snipewin#filter#floatwin                        *g:snipewin#filter#floatwin*
 	Filter to ignore Neovim's floating window (|api-floatwin|).
+
+------------------------------------------------------------------------------
+LUA INTERFACE                                         *snipewin-lua-interface*
+
+NOTE: This feature is only available in Neovim.
+
+Unlike |vim.fn|, Funcref through |lua-vim-variables| is not converted to lua
+function but |vim.NIL|. This is a serious problem for snipewin when accessing
+callbacks and filters. The following features provide a proxy to work around
+these problems.
+
+snipewin.select([{callback}])                              *snipewin.select()*
+	The wrapper function for |snipewin#select()|.
+	It almost same as it, but return `nil` when {callback} is not called.
+
+snipewin.callback.{name}                                   *snipewin.callback*
+	The proxy table for builtin callbacks (|snipewin-callbacks|).
+	For example, `callback.goto` is same as |g:snipewin#callback#goto|.
+
+snipewin.filter.{name}                                       *snipewin.filter*
+	The proxy table for builtin filters (|snipewin-filters|).
+	For example, `filters.floatwin` is same as |g:snipewin#filters#floatwin|.
 
 ------------------------------------------------------------------------------
 HIGHLIGHT GROUPS                                   *snipewin-highlight-groups*
