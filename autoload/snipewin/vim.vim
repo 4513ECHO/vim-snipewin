@@ -1,7 +1,6 @@
 " @return winid[]
 function! snipewin#vim#list_win() abort
-  return range(1, tabpagewinnr(tabpagenr(), '$'))
-        \ ->map({ _, winnr -> win_getid(winnr) })
+  return range(1, tabpagewinnr(tabpagenr(), '$'))->map({ -> win_getid(v:val) })
 endfunction
 
 " @param winnr winnr
@@ -18,5 +17,5 @@ endfunction
 
 " @param labels { label: winid }[]
 function! snipewin#vim#clear_label(labels) abort
-  call map(copy(a:labels), { _, label -> popup_close(label.label) })
+  call map(copy(a:labels), { -> popup_close(v:val.label) })
 endfunction

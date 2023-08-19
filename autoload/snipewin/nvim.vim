@@ -1,7 +1,6 @@
 " @return winid[]
 function! snipewin#nvim#list_win() abort
-  return nvim_tabpage_list_wins(0)
-        \ ->filter({ _, id -> nvim_win_get_config(id).focusable })
+  return nvim_tabpage_list_wins(0)->filter({ -> nvim_win_get_config(v:val).focusable })
 endfunction
 
 " @param winnr winnr
@@ -28,5 +27,5 @@ endfunction
 
 " @param labels { label: winid }[]
 function! snipewin#nvim#clear_label(labels) abort
-  call map(copy(a:labels), { _, label -> nvim_win_close(label.label, v:true) })
+  call map(copy(a:labels), { -> nvim_win_close(v:val.label, v:true) })
 endfunction

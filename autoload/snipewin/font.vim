@@ -1,9 +1,19 @@
 " Sequence of 'A' to 'Z'
-let s:chars = range(char2nr('A'), char2nr('Z'))->map({ _, nr -> nr2char(nr) })
+let s:chars = range(char2nr('A'), char2nr('Z'))->map({ -> nr2char(v:val) })
 let s:cache = {}
 let s:file = #{
       \ asciian: expand('<sfile>:h') .. '/data/asciian_9_15.txt',
       \ }
+
+function! s:read_chunk(lines, result = []) abort
+  while v:true
+    let line = remove(a:lines, 0)
+    if empty(line)
+      break
+    endif
+    call add(a:result, line)
+  endwhile
+endfunction
 
 function! s:read_data(file) abort
   " NOTE: Initialize Record<s:chars, string[]>
@@ -11,24 +21,10 @@ function! s:read_data(file) abort
         \ [execute('let acc[key] = []'), acc][-1] }, {})
   let lines = readfile(a:file)
 
-  for _ in range(0, 1) " Skip a header and a blank griph
-    while v:true
-      let line = remove(lines, 0)
-      if empty(line)
-        break
-      endif
-    endwhile
-  endfor
+  " Skip a header and a blank griph
+  call range(2)->map({ -> s:read_chunk(lines) })
 
-  for c in s:chars
-    while v:true
-      let line = remove(lines, 0)
-      if empty(line)
-        break
-      endif
-      call add(R[c], line)
-    endwhile
-  endfor
+  call copy(s:chars)->map({ -> s:read_chunk(lines, R[v:val]) })
   return R
 endfunction
 
@@ -43,7 +39,7 @@ endfunction
 function! snipewin#font#load(name) abort
   if !has_key(s:cache, a:name)
     if a:name =~# '_inverted$'
-      let name = substitute(a:name, '_inverted', '', '')
+      let name = a:name->substitute('_inverted$', '', '')
       let s:cache[a:name] = s:read_data(s:file[name])
             \ ->map({ _, text -> #{
             \   text: s:invert_font(text),
