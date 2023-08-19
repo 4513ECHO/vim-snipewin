@@ -7,6 +7,7 @@ let g:snipewin_filters = g:->get('snipewin_filters', [])
 let g:snipewin_ignore_single = g:->get('snipewin_ignore_single', v:false)
 let g:snipewin_label_chars = g:->get('snipewin_label_chars', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ')
 let g:snipewin_label_font = g:->get('snipewin_label_font', 'asciian')
+let g:snipewin_label_pixel = g:->get('snipewin_label_pixel', '#')
 let g:snipewin_override_winopts = g:->get('snipewin_override_winopts', {})
 
 augroup snipewin

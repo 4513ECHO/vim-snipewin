@@ -36,6 +36,15 @@ function! s:invert_font(text) abort
         \ })
 endfunction
 
+function! s:replace_font(font, pixel) abort
+  if a:pixel ==# '#'
+    return a:font
+  endif
+  return a:font->deepcopy()->map({ -> extend(v:val, #{
+        \ text: v:val.text->map({ -> v:val->substitute('#', a:pixel, 'g') })
+        \ }) })
+endfunction
+
 function! snipewin#font#load(name) abort
   if !has_key(s:cache, a:name)
     if a:name =~# '_inverted$'
@@ -55,5 +64,5 @@ function! snipewin#font#load(name) abort
             \ } })
     endif
   endif
-  return s:cache[a:name]
+  return s:cache[a:name]->s:replace_font(g:snipewin_label_pixel)
 endfunction

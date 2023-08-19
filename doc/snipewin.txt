@@ -3,7 +3,7 @@
 Author: Hibiki <mail@4513echo.dev>
 License: MIT License
 URL: https://github.com/4513ECHO/vim-snipewin
-Last change: 2023 Aug 15
+Last change: 2023 Aug 19
 
 ==============================================================================
 CONTENTS                                                   *snipewin-contents*
@@ -54,6 +54,7 @@ snipewin#select([{callback}])                              *snipewin#select()*
 	{callback} is optional |Funcref| that called after confirm selecting.
 	See |snipewin-callbacks| for details.
 	Return a result of {callback} if it called, otherwise return |v:null|.
+	If your Vim/Neovim supports mouse, selecting by click is enabled.
 
 	NOTE: If typed charactor is lower case alphabet, treated as upper case.
 	NOTE: If typed charactor is invalid, Selecting is canceled and
@@ -83,11 +84,15 @@ g:snipewin_label_chars                                *g:snipewin_label_chars*
 	Only upper case alphabets are acceptable.
 
 	WARNING: If the number of windows overflows the length of this
-	variable, You cannot select the rest of windows.
+	variable, You cannot select the rest of windows without mouse.
 
 g:snipewin_label_font                                  *g:snipewin_label_font*
 		|String| (default: "asciian")
 	The font used for label. "asciian", "asciian_inverted" are available.
+
+g:snipewin_label_pixel                                *g:snipewin_label_pixel*
+		|String| (default: "#")
+	The single charactor used for pixel of the label.
 
 g:snipewin_override_winopts                      *g:snipewin_override_winopts*
 		|Dictionary| (default: `{}`)
