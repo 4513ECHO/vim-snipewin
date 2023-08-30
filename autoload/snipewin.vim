@@ -9,7 +9,7 @@ function! snipewin#select(callback = g:snipewin#callback#default) abort
 
   let targets = snipewin#{s:host}#list_win()
   for Filter in g:snipewin_filters
-    let targets = targets->copy()->filter({ -> !Filter(v:val) })
+    let targets = targets->copy()->filter({ -> Filter(v:val) })
   endfor
   if len(targets) ==# 0 || (g:snipewin_ignore_single && len(targets) ==# 1)
     return

@@ -1,9 +1,9 @@
-*snipewin.txt*                          Select window most quickly like sniper
+*snipewin.txt*                     Manipulate windows most quickly like sniper
 
 Author: Hibiki <mail@4513echo.dev>
 License: MIT License
 URL: https://github.com/4513ECHO/vim-snipewin
-Last change: 2023 Aug 19
+Last change: 2023 Aug 30
 
 ==============================================================================
 CONTENTS                                                   *snipewin-contents*
@@ -67,10 +67,10 @@ g:snipewin_filters                                        *g:snipewin_filters*
 		|List| of |Funcref| (default: `[]`)
 	Filters to judge whether a window should not be labeled.
 	Each function recieves |window-ID| and return |Boolean|.
-	Only windows that pass none of filter functions are labeled.
+	Only windows that pass all filter functions are labeled.
 
 	Expamle to ignore current window: >
-		let g:snipewin_filters = [{ winid -> winid ==# win_getid() }]
+		let g:snipewin_filters = [{ winid -> winid !=# win_getid() }]
 <
 	See |snipewin-filters| for builtin filters.
 
