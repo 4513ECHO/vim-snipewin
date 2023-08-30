@@ -29,8 +29,7 @@ let g:snipewin#callback#swap = function('s:swap')
 "  License: MIT, https://github.com/atusy/dotfiles/blob/effe2521/LICENSE.md
 function! s:find_wincmd_x_target(layout, current, target) abort
   let leaves = {}
-  let idx = 1
-  for item in a:layout[1]
+  for [idx, item] in a:layout[1]->map({ i, v -> [i + 1, v] })
     if item[0] ==# 'leaf'
       let leaves[item[1]] = idx
     else
@@ -39,7 +38,6 @@ function! s:find_wincmd_x_target(layout, current, target) abort
         return result
       endif
     endif
-    let idx += 1
   endfor
   return leaves->has_key(a:current) ? leaves->get(a:target) : 0
 endfunction

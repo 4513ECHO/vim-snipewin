@@ -3,18 +3,16 @@ let s:host = has('nvim') ? 'nvim' : 'vim'
 function! snipewin#select(callback = g:snipewin#callback#default) abort
   let fonts = snipewin#font#load(g:snipewin_label_font)
   let label = g:snipewin_label_chars->split('\zs')
-  let label_idx = 0
   " @type Record<string, { label: winid, target: winid }>
   let label_win = {}
 
-  let targets = snipewin#{s:host}#list_win()
-  for Filter in g:snipewin_filters
-    let targets = targets->copy()->filter({ -> Filter(v:val) })
-  endfor
+  let targets = g:snipewin_filters->reduce(
+        \ { acc, Filter -> acc->copy()->filter({ -> Filter(v:val) }) },
+        \ snipewin#{s:host}#list_win())
   if len(targets) ==# 0 || (g:snipewin_ignore_single && len(targets) ==# 1)
     return
   endif
-  for target in targets
+  for [label_idx, target] in targets->map({ i, v -> [i, v] })
     if label_idx >= len(label)
       call snipewin#_echoerr('Window overflows the length of label. Stop labeling...')
       break
@@ -23,7 +21,6 @@ function! snipewin#select(callback = g:snipewin#callback#default) abort
           \ label: win_id2win(target)->snipewin#{s:host}#create_label(fonts[label[label_idx]]),
           \ target: target,
           \ }
-    let label_idx += 1
   endfor
 
   redraw
