@@ -18,7 +18,7 @@ function! snipewin#select(callback = g:snipewin#callback#default) abort
       break
     endif
     let label_win[label[label_idx]] = #{
-          \ label: win_id2win(target)->snipewin#{s:host}#create_label(fonts[label[label_idx]]),
+          \ label: target->snipewin#{s:host}#create_label(fonts[label[label_idx]]),
           \ target: target,
           \ }
   endfor
