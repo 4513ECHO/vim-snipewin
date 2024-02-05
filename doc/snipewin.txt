@@ -3,7 +3,7 @@
 Author: Hibiki <mail@4513echo.dev>
 License: MIT License
 URL: https://github.com/4513ECHO/vim-snipewin
-Last change: 2023 Aug 30
+Last change: 2024 Feb 05
 
 ==============================================================================
 CONTENTS                                                   *snipewin-contents*
@@ -43,7 +43,7 @@ KEY MAPPINGS                                           *snipewin-key-mappings*
 <Plug>(snipewin)                                            *<Plug>(snipewin)*
 	The mapping version of |snipewin#select()|.
 
-	Expamle: >
+	Example: >
 		nnoremap <C-w>W <Plug>(snipewin)
 
 ------------------------------------------------------------------------------
@@ -69,7 +69,7 @@ g:snipewin_filters                                        *g:snipewin_filters*
 	Each function recieves |window-ID| and return |Boolean|.
 	Only windows that pass all filter functions are labeled.
 
-	Expamle to ignore current window: >
+	Example to ignore current window: >
 		let g:snipewin_filters = [{ winid -> winid !=# win_getid() }]
 <
 	See |snipewin-filters| for builtin filters.
@@ -108,7 +108,7 @@ selected window.
 Callback is always called in the current window.
 If {callback} is ommited, |g:snipewin#callback#default| is used.
 
-Expamle to pass through winid: >
+Example to pass through winid: >
 	call snipewin#select({ winid -> winid })
 
 BUILTIN CALLBACKS~
@@ -147,7 +147,7 @@ BUILTIN FILTERS~
 g:snipewin#filter#filetype                        *g:snipewin#filter#filetype*
 	Higher-order function that recieves a list of filtypes to ignore.
 
-	Expamle: >
+	Example: >
 	" Ignore famous fuzzy finder plugins.
 	let g:snipewin_filters = [
 	       \ g:snipewin#filter#filetype(['fzf', 'ctrlp', 'ddu-ff']),
@@ -176,7 +176,15 @@ snipewin.callback.{name}                                   *snipewin.callback*
 
 snipewin.filter.{name}                                       *snipewin.filter*
 	The proxy table for builtin filters (|snipewin-filters|).
-	For example, `filters.floatwin` is same as |g:snipewin#filters#floatwin|.
+	For example, `filter.floatwin` is same as |g:snipewin#filter#floatwin|.
+
+	Example: >
+	local snipewin = require "snipewin"
+	vim.g.snipewin_filters = {
+	  snipewin.filter.filetype { "fzf", "ctrlp", "ddu-ff" },
+	  snipewin.filter.floatwin,
+	}
+	snipewin.select(snipewin.callback.close)
 
 ------------------------------------------------------------------------------
 HIGHLIGHT GROUPS                                   *snipewin-highlight-groups*

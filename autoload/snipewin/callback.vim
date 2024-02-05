@@ -1,14 +1,25 @@
-let g:snipewin#callback#close = { winid -> win_execute(winid, 'close') }
+function! snipewin#callback#close(winid) abort
+  return win_execute(a:winid, 'close')
+endfunction
 
-let g:snipewin#callback#hide = { winid -> win_execute(winid, 'hide') }
+function! snipewin#callback#hide(winid) abort
+  return win_execute(a:winid, 'hide')
+endfunction
 
-let g:snipewin#callback#goto = { winid -> win_gotoid(winid) }
+function! snipewin#callback#goto(winid) abort
+  return win_gotoid(a:winid)
+endfunction
 
-let g:snipewin#callback#only = { winid -> win_execute(winid, 'only') }
+function! snipewin#callback#only(winid) abort
+  return win_execute(a:winid, 'only')
+endfunction
 
-let g:snipewin#callback#default = g:->get('snipewin#callback#default', g:snipewin#callback#goto)
+let g:snipewin#callback#default = g:->get(
+      \ 'snipewin#callback#default',
+      \ function('snipewin#callback#goto'),
+      \ )
 
-function! s:swap(winid) abort
+function! snipewin#callback#swap(winid) abort
   let current = win_getid()
   if current !=# a:winid && winnr('$') <= 2
     wincmd x
@@ -23,7 +34,6 @@ function! s:swap(winid) abort
   execute 'hide buffer' winbufnr(a:winid)
   call win_execute(a:winid, 'hide buffer ' .. current)
 endfunction
-let g:snipewin#callback#swap = function('s:swap')
 
 " Original: https://github.com/atusy/dotfiles/blob/effe2521/dot_config/nvim/lua/plugins/chowcho.lua#L83-L96
 "  License: MIT, https://github.com/atusy/dotfiles/blob/effe2521/LICENSE.md

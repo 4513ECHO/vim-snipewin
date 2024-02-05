@@ -15,26 +15,28 @@ end
 ---@type table<string, fun(winid: integer): any>
 M.callback = setmetatable({}, {
   __index = function(_, name)
-    return function(winid)
-      return vim.api.nvim_eval(
-        ("call(g:snipewin#callback#%s, [%d])"):format(name, winid)
-      )
+    if name == "default" then
+      return function(winid)
+        return vim.api.nvim_eval(
+          ("g:snipewin#callback#default->call([%d])"):format(winid)
+        )
+      end
     end
+    return vim.fn["snipewin#callback#" .. name]
   end,
 })
 
+---@type table<string, function>
 M.filter = setmetatable({}, {
   __index = function(_, name)
     return function(arg)
       if type(arg) == "number" then
-        local ret = vim.api.nvim_eval(
-          ("call(g:snipewin#filter#%s, [%d])"):format(name, arg)
-        )
+        local ret = vim.fn["snipewin#filter#" .. name](arg)
         return ret == 1 or ret == true
       end
       return function(winid)
         local ret = vim.api.nvim_eval(
-          ("call(g:snipewin#filter#%s, [%s])->call([%d])"):format(
+          ("snipewin#filter#%s(%s)->call([%d])"):format(
             name,
             vim.fn.string(arg),
             winid
