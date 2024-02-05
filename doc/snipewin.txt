@@ -17,6 +17,7 @@ Interface					|snipewin-interface|
   Filters					|snipewin-filters|
   Lua Interface					|snipewin-lua-interface|
   Highlight Groups				|snipewin-highlight-groups|
+Compatibility					|snipewin-compatibility|
 About						|snipewin-about|
 
 ==============================================================================
@@ -192,6 +193,19 @@ HIGHLIGHT GROUPS                                   *snipewin-highlight-groups*
 SnipeWinLabel                                               *hl-SnipeWinLabel*
 	The highlight group used for label of |snipewin#select()|.
 	It is linked to `Label` (see |group-name|) in default.
+
+==============================================================================
+COMPATIBILITY                                         *snipewin-compatibility*
+
+There is a list of breaking changes of the plugin.
+
+2024-02-05~
+	(`34dfbe36f1680e3ad4c0df12fbc7555032a56f83`)
+- Builtin |snipewin-callbacks| and |snipewin-filters| are no longer |Funcref|.
+
+2023-08-31~
+	(`bfd162ea2e6d556b02ad3cb18a95f03efd38caeb`)
+- Invert the meaning of |snipewin-filters| return value.
 
 ==============================================================================
 ABOUT                                                         *snipewin-about*
