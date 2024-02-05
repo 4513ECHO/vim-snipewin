@@ -1,6 +1,6 @@
 " @return winid[]
 function! snipewin#vim#list_win() abort
-  return range(1, tagpagenr()->tabpagewinnr('$'))->map({ -> win_getid(v:val) })
+  return range(1, tabpagenr()->tabpagewinnr('$'))->map({ -> win_getid(v:val) })
 endfunction
 
 " @param winid winid
