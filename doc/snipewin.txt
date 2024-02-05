@@ -109,29 +109,32 @@ selected window.
 Callback is always called in the current window.
 If {callback} is ommited, |g:snipewin#callback#default| is used.
 
-Example to pass through winid: >
+Example: >
+	" Pass through winid
 	call snipewin#select({ winid -> winid })
+	" Use 'only' callback
+	call snipewin#select({ winid -> snipewin#callback#only(winid) })
 
 BUILTIN CALLBACKS~
 	Following builtin callbacks are available.
 
 g:snipewin#callback#default                      *g:snipewin#callback#default*
 	Default callback of |snipewin#select()| and you can define this. It is
-	alias of |g:snipewin#callback#goto| by default.
+	alias of |snipewin#callback#goto()| by default.
 
-g:snipewin#callback#close                          *g:snipewin#callback#close*
+snipewin#callback#close()                          *snipewin#callback#close()*
 	Execute |:close| in target window.
 
-g:snipewin#callback#hide                            *g:snipewin#callback#hide*
+snipewin#callback#hide()                            *snipewin#callback#hide()*
 	Execute |:hide| in target window.
 
-g:snipewin#callback#goto                            *g:snipewin#callback#goto*
+snipewin#callback#goto()                            *snipewin#callback#goto()*
 	Go to target window.
 
-g:snipewin#callback#only                            *g:snipewin#callback#only*
+snipewin#callback#only()                            *snipewin#callback#only()*
 	Execute |:only| in target window.
 
-g:snipewin#callback#swap                            *g:snipewin#callback#swap*
+snipewin#callback#swap()                            *snipewin#callback#swap()*
 	Swap displayed buffers between current window and target window.
 	It may fallback to |CTRL-W_x| if possible.
 
@@ -145,7 +148,7 @@ FILTERS                                                     *snipewin-filters*
 BUILTIN FILTERS~
 	Following builtin filters are available.
 
-g:snipewin#filter#filetype                        *g:snipewin#filter#filetype*
+snipewin#filter#filetype()                        *snipewin#filter#filetype()*
 	Higher-order function that recieves a list of filtypes to ignore.
 
 	Example: >
@@ -154,7 +157,7 @@ g:snipewin#filter#filetype                        *g:snipewin#filter#filetype*
 	       \ g:snipewin#filter#filetype(['fzf', 'ctrlp', 'ddu-ff']),
 	       \ ]
 
-g:snipewin#filter#floatwin                        *g:snipewin#filter#floatwin*
+snipewin#filter#floatwin()                        *snipewin#filter#floatwin()*
 	Filter to ignore Neovim's floating window (|api-floatwin|).
 
 ------------------------------------------------------------------------------
@@ -173,11 +176,11 @@ snipewin.select([{callback}])                              *snipewin.select()*
 
 snipewin.callback.{name}                                   *snipewin.callback*
 	The proxy table for builtin callbacks (|snipewin-callbacks|).
-	For example, `callback.goto` is same as |g:snipewin#callback#goto|.
+	For example, `callback.goto` is same as |snipewin#callback#goto()|.
 
 snipewin.filter.{name}                                       *snipewin.filter*
 	The proxy table for builtin filters (|snipewin-filters|).
-	For example, `filter.floatwin` is same as |g:snipewin#filter#floatwin|.
+	For example, `filter.floatwin` is same as |snipewin#filter#floatwin()|.
 
 	Example: >
 	local snipewin = require "snipewin"
