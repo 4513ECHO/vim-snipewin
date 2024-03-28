@@ -35,13 +35,16 @@ function! snipewin#callback#swap(winid) abort
   call win_execute(a:winid, 'hide buffer ' .. current)
 endfunction
 
-" Original: https://github.com/atusy/dotfiles/blob/effe2521/dot_config/nvim/lua/plugins/chowcho.lua#L83-L96
-"  License: MIT, https://github.com/atusy/dotfiles/blob/effe2521/LICENSE.md
+" Original: https://github.com/atusy/dotfiles/blob/1c57fd77/dot_config/nvim/lua/plugins/chowcho.lua#L83-L96
+"  License: MIT, https://github.com/atusy/dotfiles/blob/1c57fd77/LICENSE.md
 function! s:find_wincmd_x_target(layout, current, target) abort
+  if a:layout[0] ==# 'leaf'
+    return
+  endif
   let leaves = {}
-  for [idx, item] in a:layout[1]->map({ i, v -> [i + 1, v] })
+  for [idx, item] in a:layout[1]->map({ i, v -> [i, v] })
     if item[0] ==# 'leaf'
-      let leaves[item[1]] = idx
+      let leaves[item[1]] = idx + 1
     else
       let result = s:find_wincmd_x_target(item, a:current, a:target)
       if result
