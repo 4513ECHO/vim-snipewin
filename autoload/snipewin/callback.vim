@@ -25,9 +25,9 @@ function! snipewin#callback#swap(winid) abort
     wincmd x
     return
   endif
-  let count = s:find_wincmd_x_target(winlayout(), current, a:winid)
-  if count
-    execute count 'wincmd x'
+  let target = s:find_wincmd_x_target(winlayout(), current, a:winid)
+  if target
+    execute target 'wincmd x'
     return
   endif
   let current = winbufnr(current)
